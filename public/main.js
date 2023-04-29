@@ -28,9 +28,15 @@ function addMessage(type, user, msg){
             ul.innerHTML = '<li class="m-status">'+msg+'</li>'
         break
         case 'msg':
-            ul.innerHTML += '<li class="m-txt"><spam>'+user+'</spam></li>'
+            if(username == user){
+                ul.innerHTML += '<li class="m-txt"><spam class="me">'+user+'</spam></li>'
+            }else{
+                ul.innerHTML += '<li class="m-txt"><spam>'+user+'</spam></li>'
+            }
         break
     }
+
+    ul.scrollTop = ul.scrollHeight
 }
 
 loginInput.addEventListener('keyup', (e)=>{
@@ -41,6 +47,19 @@ loginInput.addEventListener('keyup', (e)=>{
             document.title = 'Chat ('+username+')'
 
             socket.emit('join-request', username)
+        }
+    }
+})
+
+//Enviando mensagem
+textInput.addEventListener('keyup', (e)=>{
+    if(e.keyCode === 13){
+        let txt = textInput.value.trim()
+        textInput.value = ''
+
+        if(txt != ''){
+            addMessage('msg', username, txt)
+            socket.emit('send-msg', txt)
         }
     }
 })
@@ -66,4 +85,26 @@ socket.on('list-update', (data)=>{
     }
     userList = data.list
     renderUserList()
+})
+
+socket.on('show-msg', (data)=>{
+    addMessage('msg', data.username, data.message)
+})
+
+socket.on('disconnect', ()=>{
+    addMessage('status', null, ' Você foi desconectado')
+    userList = []
+    renderUserList()
+})
+
+socket.on('reconnect_error', ()=>{
+    addMessage('status', null, ' Tentando reconectar...')
+})
+
+socket.on('reconnect', ()=>{
+    addMessage('status', null, 'Reconectado')
+
+    if(username != ''){
+        socket.emit('join-request', username)
+    }
 })
