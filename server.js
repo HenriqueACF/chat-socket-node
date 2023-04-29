@@ -4,53 +4,50 @@ const http = require('http');
 const socketIO = require('socket.io');
 
 const app = express();
-const server = http.createServer(app)
-const io = socketIO(server)
+const server = http.createServer(app);
+const io = socketIO(server);
 
-server.listen(3000)
-console.log('API RODANDO NA PORTA 3000')
+server.listen(3000);
+console.log('listening on port 3000')
 
-app.use(express.static(path.join(__dirname, 'public')))
+app.use(express.static(path.join(__dirname, 'public')));
 
-let connectedUsers = []
+let connectedUsers = [];
 
-//Conexao socket
-io.on('connection', (socket)=>{
-    console.log('Conextao encontrada...')
+io.on('connection', (socket) => {
+    console.log("Conexão detectada...");
 
-    socket.on('join-request', (username)=>{
-        socket.username = username
-        connectedUsers.push(username)
+    socket.on('join-request', (username) => {
+        socket.username = username;
+        connectedUsers.push( username );
+        console.log( connectedUsers );
 
-        console.log(connectedUsers)
-
-        socket.emit('user-ok', connectedUsers)
-        //broadcast
+        socket.emit('user-ok', connectedUsers);
         socket.broadcast.emit('list-update', {
             joined: username,
             list: connectedUsers
-        })
-    })
+        });
+    });
 
-    //disconnect
-    socket.on('disconnect', ()=>{
-        connectedUsers = connectedUsers.filter(u => u != socket.username)
-        console.log(connectedUsers)
+    socket.on('disconnect', () => {
+        connectedUsers = connectedUsers.filter(u => u != socket.username);
+        console.log(connectedUsers);
 
         socket.broadcast.emit('list-update', {
             left: socket.username,
             list: connectedUsers
-        })
-    })
+        });
 
-    socket.on('send-msg', (txt)=>{
+    });
+
+    socket.on('send-msg', (txt) => {
         let obj = {
             username: socket.username,
             message: txt
-        }
+        };
 
-        //socket.emit('show-msg', obj)
-        socket.broadcast.emit('show-msg', obj)
-    })
+        //socket.emit('show-msg', obj);
+        socket.broadcast.emit('show-msg', obj);
+    });
 
-})
+});
