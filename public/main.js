@@ -11,6 +11,7 @@ let textInput = document.querySelector('#chatTextInput')
 loginPage.style.display = 'flex'
 chatPage.style.display = 'none'
 
+//RENDERIZAR LISTA DE USUARIOS
 function renderUserList() {
     let ul = document.querySelector('.userList')
     ul.innerHTML = ''
@@ -20,6 +21,7 @@ function renderUserList() {
     })
 }
 
+//ENVIO DE MENSAGEM
 function addMessage(type, user, msg) {
     let ul = document.querySelector('.chatList')
 
