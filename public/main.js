@@ -25,13 +25,13 @@ function addMessage(type, user, msg){
 
     switch (type){
         case 'status':
-            ul.innerHTML = '<li class="m-status">'+msg+'</li>'
+            ul.innerHTML = '<li class="m-status">' +msg+'</li>'
         break
         case 'msg':
             if(username == user){
-                ul.innerHTML += '<li class="m-txt"><spam class="me">'+user+'</spam></li>'
+                ul.innerHTML += '<li class="m-txt"><spam class="me">'+user+ '</spam>' +msg+'</li>'
             }else{
-                ul.innerHTML += '<li class="m-txt"><spam>'+user+'</spam></li>'
+                ul.innerHTML += '<li class="m-txt"><spam>'+user+ '</spam>' +msg+'</li>'
             }
         break
     }
@@ -45,7 +45,6 @@ loginInput.addEventListener('keyup', (e)=>{
         if(name != ''){
             username = name
             document.title = 'Chat ('+username+')'
-
             socket.emit('join-request', username)
         }
     }
@@ -65,7 +64,7 @@ textInput.addEventListener('keyup', (e)=>{
 })
 
 socket.on('user-ok', (list)=>{
-      loginPage.style.display = 'none'
+    loginPage.style.display = 'none'
     chatPage.style.display = 'flex'
     textInput.focus()
 
