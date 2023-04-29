@@ -1,28 +1,26 @@
-body{
+body {
     margin: 0;
 }
-
-ul, li{
+ul, li {
     margin: 0;
     padding: 0;
     list-style: none;
 }
 
-.page{
+.page {
     height: 100vh;
     justify-content: center;
     align-items: center;
     flex-direction: column;
 }
 
-#loginPage{
+#loginPage {
     display: flex;
-    background-color: #fff;
+    background-color: #FFF;
 }
-
-#loginNameInput{
+#loginNameInput {
     border: 2px solid #000;
-    background-color: #ccc;
+    background-color: #CCC;
     font-size: 18px;
     padding: 10px;
     border-radius: 5px;
@@ -31,68 +29,60 @@ ul, li{
     max-width: 400px;
 }
 
-#chatPage{
+
+#chatPage {
     display: none;
 }
 
-.chatArea{
+.chatArea {
     flex: 1;
     width: 100%;
     display: flex;
-
-    background-color: #cccccc;
+    background-color: #CCC;
 }
-
-.chatList{
+.chatList {
     flex: 1;
-    background-color: #fff;
-}
-
-.chatList li{
-    padding: 3px;
-    font-size: 15px;
-    overflow-y: scroll;
-    max-height: calc(100vh - 40px)
-}
-
-.chatList li.m-status{
-    color: #333;
-    font-style: italic;
-}
-
-.chatList li.m-txt span{
-    font-weight: bold;
-    color: #0000ff;
-}
-
-.chatList li.m-txt span.me{
-    font-weight: bold;
-    color: #ff0000;
-}
-
-.userList{
-    width: 200px;
-    background-color: #cccccc;
+    background-color: #FFF;
     overflow-y: scroll;
     max-height: calc(100vh - 40px);
 }
+.chatList li {
+    padding: 3px;
+    font-size: 15px;
+}
+.chatList li.m-status {
+    color: #333;
+    font-style: italic;
+}
+.chatList li.m-txt span {
+    font-weight: bold;
+    color: #0000FF;
+}
+.chatList li.m-txt span.me {
+    color: #FF0000;
+}
 
-.userList li{
+.userList {
+    width: 200px;
+    background-color: #CCC;
+    overflow-y: scroll;
+    max-height: calc(100vh - 40px);
+}
+.userList li {
     padding: 5px;
     font-size: 15px;
 }
 
-.chatInput{
+.chatInput {
     width: 100%;
     display: flex;
 }
-
-#chatTextInput{
+#chatTextInput {
     flex: 1;
     height: 40px;
     padding: 0 10px;
     font-size: 15px;
-    background-color: #ccc;
+    background-color: #CCC;
     outline: 0;
     border: 0;
 }
